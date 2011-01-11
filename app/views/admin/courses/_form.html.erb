@@ -1,0 +1,42 @@
+<%= form_for([:admin,@course]) do |f| %>
+  <% if @course.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+      <ul>
+      <% @course.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :target_id %><br />
+    <%= f.select :target_id, options_for_select(@targets.collect{|t| [t.name,t.id]}.sort,@course.target_id) %>
+  </div>
+  
+  <!-- <div class="field">
+    <%= f.label :target_id %><br />
+    <%= f.text_field :target_id %>
+  </div> -->
+  <div class="field">
+    <%= f.label :level_id %><br />
+    <%= f.select :level_id, options_for_select([['Choose One',0]] + (@levels.collect{|l| [l.name,l.id]}.sort),@course.level_id) %>
+  </div>
+  <!-- <div class="field">
+    <%= f.label :level_id %><br />
+    <%= f.text_field :level_id %>
+  </div> -->
+  <div class="field">
+    <%= f.label :order_num %><br />
+    <%= f.select :order_num, options_for_select(@level_options,@course.order_num) %>
+  </div>  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

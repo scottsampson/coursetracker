@@ -1,0 +1,10 @@
+<h1>Listing Resources for <%= @course.name %></h1>
+<a href="courses">&laquo; Back to Courses</a>
+<br />
+<br />
+<br />
+<ul id="resource_list">
+<% @resources.each do |resource| %>
+  <li><%= link_to resource.url, resource.url, :target => "_blank" %></li>
+<% end %>
+</ul>

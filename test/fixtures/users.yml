@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  username: MyString
+  image: MyString
+  admin: false
+  oauth_token: MyString
+  oauth_secret: MyString
+
+two:
+  username: MyString
+  image: MyString
+  admin: false
+  oauth_token: MyString
+  oauth_secret: MyString

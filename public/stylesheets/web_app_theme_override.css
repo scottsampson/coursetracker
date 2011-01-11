@@ -1,0 +1,46 @@
+/* Override here any style definide by web-app-theme */
+
+.level_header {
+  text-align:left;
+}
+
+ul#resource_list {
+  margin-left:15px;
+}
+
+table.subject_list td {
+  padding:3px;
+}
+
+#navigation {
+	list-style:none;
+}
+
+#navigation li {
+	float:left;
+	margin-right:20px;
+}
+
+#navigation li a {
+  color:#E5E5E5;
+  text-decoration:none;
+  padding:5px 5px 0px 5px;
+  margin-top:-1px;
+}
+
+#navigation li .on,#navigation li a:hover {
+	background-color:#E5E5E5;
+	
+}
+
+#navigation li a:hover,#navigation li a.on {
+  color:#7A1818;
+}
+
+#frontend_exercise_table {
+  width:100%;
+}
+
+#frontend_exercise_table th {
+  text-align:left;
+}

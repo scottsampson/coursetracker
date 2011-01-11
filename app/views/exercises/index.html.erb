@@ -1,0 +1,42 @@
+<h1>Below is the list of exercises you still need to complete</h1>
+
+<table id='frontend_exercise_table' style='width:100%;'>
+  <tbody>
+  <tr>
+    <th>Title</th>
+    <th>Details</th>
+    <th>Finished</th>
+  </tr>
+
+<% @exercises.each do |exercise| %>
+  <% puts exercise.methods.sort.inspect %>
+  <tr>
+    <td><%= exercise.title %></td>
+    <td>
+      <% if !@finished_exercises.include?(exercise.id) %>
+        <a href='' class='exercise_details' id='exercise_details_<%= exercise.id.to_s %>'>Details</a>
+      <% end %>
+    </td>
+    <td>
+      <%= select_tag ('exercise_' + exercise.id.to_s).to_sym, options_for_select([['Choose One','']] + EXERCISE_ANSWERS.collect{|k,v| [v,k]},(@finished_exercises.include?(exercise.id) ? 1 : '')),{:class => 'exercise_submission'} %>
+    </td>
+  </tr>
+  <tr style='display:none' id='tr_exercise_<%= exercise.id.to_s %>'>
+    <td colspan='3'>
+      <p><%= exercise.description %></p>
+      <h4>Prerequisites:</h4>
+      <ul style='margin-left:15px;'>
+        <% exercise.courses.each do |course| %>
+          <li><%= course.name %></li>
+        <% end %>
+      </ul>
+    </td>
+  </tr>
+  <% if !@finished_exercises.include?(exercise.id) %>
+    <% break %>
+  <% end%>
+<% end %>
+  </tbody>
+</table>
+
+<br />

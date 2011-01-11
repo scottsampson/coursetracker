@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Username:</b>
+  <%= @user.username %>
+</p>
+
+<p>
+  <b>Image:</b>
+  <%= @user.image %>
+</p>
+
+<p>
+  <b>Admin:</b>
+  <%= @user.admin %>
+</p>
+
+<p>
+  <b>Oauth token:</b>
+  <%= @user.oauth_token %>
+</p>
+
+<p>
+  <b>Oauth secret:</b>
+  <%= @user.oauth_secret %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_user_path(@user) %> |
+<%= link_to 'Back', admin_users_path %>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coursetracker</title>
+  <%= stylesheet_link_tag "scaffold", "web_app_theme", "web_app_theme_override", "themes/default/style", :cache => true %>
+	<%= stylesheet_link_tag 'table' %>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js'></script>
+  <script src='/javascripts/rails.js'></script>
+  <script src='/javascripts/application.js'></script>
+  <%= csrf_meta_tag %>
+</head>
+<body class="admin">
+
+<div id="container">
+  <div id="header">
+    <h1><a href='/'>Knowledge Tracker Admin</a></h1>
+    <%= render 'admin/shared/nav' %>
+    <div id="user-navigation">
+      <ul class="wat-cf" style="display:inline;">
+        <% if @current_user %>
+				  <li><span style="color:white; font-weight:bold;">Welcome <%= @current_user.username %>, </span><a href="/logout" class="logout"><%= t("web-app-theme.logout", :default => "Logout") %></a></li>
+				<% end %>
+			</ul>
+   	</div> <!-- user-nagivation -->
+    <div id="main-navigation">
+    </div>
+  </div>    
+  <div id="wrapper" class="wat-cf">
+    <div class="flash">
+      <% flash.each do |type, message| -%>
+				<% unless message.nil? -%>
+					<div class="message <%= type %>">
+					  <p><%= message %></p>
+					</div>
+				<% end -%>	
+      <% end -%>
+    </div>
+    <div id="main">
+      <%= yield %>
+    </div>
+	</div><!-- wrapper -->
+  <div id="footer">
+    <div class="block">
+      <p>Copyright &copy; <%= Time.now.year %> Knowledge Tracker.</p>
+    </div>      
+  </div> <!-- footer -->
+</div> <!-- container-->
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<h1>Listing levels</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @levels.each do |level| %>
+  <tr>
+    <td><%= level.name %></td>
+    <td><%= link_to 'Show', [:admin,level] %></td>
+    <td><%= link_to 'Edit', edit_admin_level_path(level) %></td>
+    <td><%= link_to 'Destroy', [:admin,level], :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Level', new_admin_level_path %>

@@ -1,0 +1,25 @@
+<%= form_for([:admin,@admin_resource]) do |f| %>
+  <% if @admin_resource.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin_resource.errors.count, "error") %> prohibited this admin_resource from being saved:</h2>
+
+      <ul>
+      <% @admin_resource.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :course %><br />
+    <%= @admin_resource.course.name %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <%= f.hidden_field :course_id %>
+<% end %>

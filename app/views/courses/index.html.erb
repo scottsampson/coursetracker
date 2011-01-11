@@ -1,0 +1,31 @@
+<p>Please select whether you already know the subjects below.</p>
+<p>If you don't know something, please learn it in the order it appears.  Please update this list frequently!</p>
+<table class="subject_list">
+  <% @courses.each do |course| %>
+    <% answer = course.users.collect{|user| user.know unless user.id != @current_user.id }.compact.first %>
+    <% puts "course " + course.level_id.inspect + ' - ' + @current_level.inspect + ' - ' + answer.inspect %>
+    <% if course.level_id != @current_level %>
+      <tr>
+        <th colspan="2" class="level_header"><h3><%= @levels.collect{|level| level.name unless level.id != course.level_id}.compact.first %></h3></td>
+      </tr>
+      <tr>
+        <th>Subject</th>
+        <th>Outcome</th>
+        <th>Resources</th>
+      </tr>
+      <% @current_level = course.level_id %>
+    <% end %>
+    <tr>
+      <td><%= course.name %></td>
+      <td>
+        <%= select_tag ('know_' + course.id.to_s).to_sym, options_for_select([['Choose One','']] + COURSE_ANSWERS.collect{|k,v| [v,k]},answer),{:class => 'know_submission'} %>
+        <% if answer.blank? %>
+          <span class="need_to_answer" id="<%= 'know_' + course.id.to_s + '_answered' %>">*</span>
+        <% end %>
+      </td>
+      <td><%= link_to 'Resources', resources_path(:course_id => course.id) %></td>
+    </tr>
+  <% end %>
+</table>
+<input type="hidden" id="user" value="<%= @current_user.id %>">
+<p><span class='need_to_answer'>*</span> = still need to answer</p>

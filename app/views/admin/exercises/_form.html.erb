@@ -1,0 +1,39 @@
+<%= form_for([:admin, @exercise]) do |f| %>
+  <% if @exercise.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@exercise.errors.count, "error") %> prohibited this exercise from being saved:</h2>
+
+      <ul>
+      <% @exercise.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :order %><br />
+    <%= f.select :order_num, options_for_select(@order_options,@exercise.order_num) %>
+  </div>
+  <div class="field">
+    <!-- maybe try doing fields.courses.all and then see what fields gives ya. -->
+    <%= f.label :prerequisites %><br />    
+    <%= f.fields_for "prerequisites", @courses  do |field| %>
+      <% puts "here - " + field.object.inspect %>
+      <%= field.check_box :course_id,{:checked=> (@prereq_course_ids.include?(field.object.id) ? true : false)},field.object.id,nil %><%= field.object.name %><br />
+    <% end %>
+    
+    
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
