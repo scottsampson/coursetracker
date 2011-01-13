@@ -35,5 +35,5 @@ production:
   database: coursetracker_production
   pool: 5
   username: root
-  password:
-  socket: /tmp/mysql.sock
+  password: 
+  socket: /var/run/mysqld/mysqld.sock

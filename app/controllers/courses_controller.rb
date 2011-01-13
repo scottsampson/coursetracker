@@ -94,8 +94,12 @@ class CoursesController < ApplicationController
   
   def save_user
     puts 'params' + params.inspect
-    ActiveRecord::Base.connection.execute "insert into courses_users values ('#{params['course_id']}','#{params['user_id']}','#{params['know']}') on duplicate key update know = '#{params['know']}'"
-    #render :layout => false
+    #have to do this crap because active record doesn't work without an id field
+    if params['course_id'].include?("'") || params['user_id'].include?("'") || params['know'].include?("'")
+    else 
+      ActiveRecord::Base.connection.execute "delete from courses_users where course_id = '#{params['course_id']}' and user_id = '#{params['user_id']}'"
+      ActiveRecord::Base.connection.execute "insert into courses_users values ('','#{params['course_id']}','#{params['user_id']}','#{params['know']}',now(),now())"
+    end
     render :nothing => true
   end
   

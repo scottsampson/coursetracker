@@ -17,6 +17,8 @@ Coursetracker::Application.routes.draw do
     root :to => "courses#index"
     
     match 'courses/level_count/:level_id', :controller => 'courses', :action => 'level_count'
+    match 'reports', :controller => 'reports', :action => 'index'
+    match 'reports/users', :controller => 'reports', :action => 'users'
   end
   
   resources :courses
@@ -27,6 +29,7 @@ Coursetracker::Application.routes.draw do
   match 'authenticate', :controller => 'users', :action => 'authenticate'
   match 'logout', :controller => 'users', :action => 'logout'
   match 'save_user/:course_id/:user_id/:know', :controller => 'courses', :action => 'save_user'
+  match 'save_finished/:exercise_id/:user_id/:finished', :controller => 'exercises', :action => 'save_finished'
   
   
 

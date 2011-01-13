@@ -1,24 +1,34 @@
 <h1>Below is the list of exercises you still need to complete</h1>
 
-<table id='frontend_exercise_table' style='width:100%;'>
+<table id='frontend_exercise_table' cellpadding='3'>
   <tbody>
   <tr>
     <th>Title</th>
     <th>Details</th>
     <th>Finished</th>
   </tr>
-
+<% got_break = false %>
 <% @exercises.each do |exercise| %>
-  <% puts exercise.methods.sort.inspect %>
+  <% puts (!@finished_exercises.include?(exercise.id)).inspect %>
   <tr>
     <td><%= exercise.title %></td>
     <td>
-      <% if !@finished_exercises.include?(exercise.id) %>
-        <a href='' class='exercise_details' id='exercise_details_<%= exercise.id.to_s %>'>Details</a>
-      <% end %>
+      <% #if !@finished_exercises.include?(exercise.id) %>
+        <% if hasAllPrerequisites(@current_user.known_courses,exercise.prerequisites) %>
+          <a href='' class='exercise_details' id='exercise_details_<%= exercise.id.to_s %>'>Details</a>
+        <% else %>
+          You must complete the following courses:&nbsp;
+          <% (exercise.prerequisites.collect{|prereq| prereq.course } - @current_user.known_courses).each do |course| %>
+            <%= course.name %>,
+          <% end %>
+        <% end %>
+      <% #end %>
     </td>
     <td>
-      <%= select_tag ('exercise_' + exercise.id.to_s).to_sym, options_for_select([['Choose One','']] + EXERCISE_ANSWERS.collect{|k,v| [v,k]},(@finished_exercises.include?(exercise.id) ? 1 : '')),{:class => 'exercise_submission'} %>
+      <% if hasAllPrerequisites(@current_user.known_courses,exercise.prerequisites) %>
+        <%= select_tag ('exercise_' + exercise.id.to_s).to_sym, options_for_select([['Choose One','']] + EXERCISE_ANSWERS.collect{|k,v| [v,k]},(@finished_exercises.include?(exercise.id) ? 1 : '')),{:class => 'exercise_submission'} %>
+      <% end %>
+      <div id='answered_<%= exercise.id.to_s %>' style='display:none;'><p>Please refresh the page to see the next available exercise.</p></div>
     </td>
   </tr>
   <tr style='display:none' id='tr_exercise_<%= exercise.id.to_s %>'>
@@ -33,10 +43,16 @@
     </td>
   </tr>
   <% if !@finished_exercises.include?(exercise.id) %>
+    <% got_break = true %>
     <% break %>
   <% end%>
 <% end %>
+  <% if !got_break %>
+    <tr>
+      <td colspan='3'>There are no more exercises at this time.  Please check back shortly.</td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
-
+<input type="hidden" id="user" value="<%= @current_user.id %>">
 <br />

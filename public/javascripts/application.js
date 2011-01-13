@@ -2,19 +2,17 @@
 // This file is automatically included by javascript_include_tag :defaults
 $("document").ready(function(){
   $('.know_submission').change(function() {
-  console.log()
-  var id = $(this).attr('id');
-  var course_id = id.substring(5);
-  var know = $(this).val();
-  var user_id = $('#user').val();
-  $.ajax({ 
-    url: "save_user/" + course_id + "/" + user_id + "/" + know, 
-    success: function(data){
-      console.log(id + '_answered');
-      $('#' + id + '_answered').hide();
-    }});
+    var id = $(this).attr('id');
+    var course_id = id.substring(5);
+    var know = $(this).val();
+    var user_id = $('#user').val();
+    $.ajax({ 
+      url: "save_user/" + course_id + "/" + user_id + "/" + know, 
+      success: function(data){
+        console.log(id + '_answered');
+        $('#' + id + '_answered').hide();
+      }});
   });
-  console.log('awesome');
   $('#course_level_id').change(function() {
     console.log($('#course_level_id').val());
     $.ajax({
@@ -29,5 +27,25 @@ $("document").ready(function(){
     var id = $(this).attr('id').substring(17);
     $('#tr_exercise_' + id).slideToggle('slow');
     return false;
+  });
+  
+  $('.exercise_submission').change(function() {
+    var id = $(this).attr('id');
+    var exercise_id = id.substring(9);
+    var finished = $(this).val();
+    var user_id = $('#user').val();
+    console.log('start');
+    $.ajax({ 
+      url: "save_finished/" + exercise_id + "/" + user_id + "/" + finished, 
+      success: function(data){
+        console.log(id + '_answered');
+        if(finished == 1) {
+          $('#answered_' + exercise_id).show();
+        } else {
+          $('#answered_' + exercise_id).hide();
+        }
+      }
+    });  
+    console.log('done');
   });
 });

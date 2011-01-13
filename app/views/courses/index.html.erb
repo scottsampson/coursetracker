@@ -2,8 +2,7 @@
 <p>If you don't know something, please learn it in the order it appears.  Please update this list frequently!</p>
 <table class="subject_list">
   <% @courses.each do |course| %>
-    <% answer = course.users.collect{|user| user.know unless user.id != @current_user.id }.compact.first %>
-    <% puts "course " + course.level_id.inspect + ' - ' + @current_level.inspect + ' - ' + answer.inspect %>
+    <% answer = course.courses_users.collect{|course_user| (course_user.know ? 1 : 0) unless course_user.user.id != @current_user.id }.compact.first %>
     <% if course.level_id != @current_level %>
       <tr>
         <th colspan="2" class="level_header"><h3><%= @levels.collect{|level| level.name unless level.id != course.level_id}.compact.first %></h3></td>

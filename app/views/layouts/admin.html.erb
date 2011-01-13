@@ -25,6 +25,9 @@
     <div id="main-navigation">
     </div>
   </div>    
+  <% if current_tab?('reports') %>
+    <%= render 'admin/shared/report_nav' %>
+  <% end %>
   <div id="wrapper" class="wat-cf">
     <div class="flash">
       <% flash.each do |type, message| -%>

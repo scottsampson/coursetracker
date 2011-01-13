@@ -3,7 +3,9 @@ class ExercisesController < ApplicationController
   # GET /exercises.xml
   def index
     @exercises = Exercise.all()
-    @finished_exercises = FinishedExercise.select('exercise_id').where(:user_id => @current_user.id)
+    @finished_exercises = FinishedExercise.select('exercise_id').where(:user_id => @current_user.id, :finished => 1).collect{|exercise| exercise.exercise_id }
+    puts   @finished_exercises.inspect
+    #@course_ids = @current_user.courses.collect{|course| course.id }
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @exercises }
@@ -79,5 +81,15 @@ class ExercisesController < ApplicationController
       format.html { redirect_to(exercises_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def save_finished
+    #have to do this crap because active record doesn't work without an id field
+    if params['exercise_id'].include?("'") || params['user_id'].include?("'") || params['finished'].include?("'")
+    else 
+      ActiveRecord::Base.connection.execute "delete from finished_exercises where exercise_id = '#{params['exercise_id']}' and user_id = '#{params['user_id']}'"
+      ActiveRecord::Base.connection.execute "insert into finished_exercises values ('','#{params['exercise_id']}','#{params['user_id']}','#{params['finished']}',now(),now())"
+    end
+    render :nothing => true
   end
 end

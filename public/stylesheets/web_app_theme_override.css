@@ -43,4 +43,9 @@ table.subject_list td {
 
 #frontend_exercise_table th {
   text-align:left;
+  width:33%;
+}
+
+#frontend_exercise_table td {
+  width:33%;
 }

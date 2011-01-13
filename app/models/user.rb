@@ -1,3 +1,23 @@
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :courses
+  has_many :courses_users
+  has_many :courses, :through => :courses_users
+  has_many :finished_exercises
+  has_many :exercises, :through => :finished_exercises
+  
+  def known_courses
+    self.courses.collect{|course| course if course.courses_users.first.know == true }.compact
+  end
+  
+  def known_beginner
+    self.courses.collect{|course| course if course.courses_users.first.know == true && course.level_id == 1 }.compact
+  end
+  
+  def known_intermediate
+    self.courses.collect{|course| course if course.courses_users.first.know == true && course.level_id == 2 }.compact
+  end
+  
+  def known_expert
+    self.courses.collect{|course| course if course.courses_users.first.know == true && course.level_id == 3 }.compact
+  end
+    
 end
