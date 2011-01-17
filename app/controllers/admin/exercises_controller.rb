@@ -58,11 +58,16 @@ class Admin::ExercisesController < Admin::ApplicationController
   # POST /exercises
   # POST /exercises.xml
   def create
+    new_prerequisites = params[:exercise]["prerequisites_attributes"].collect{|ind,course| Prerequisite.new({:course_id => course["course_id"].to_i, :exercise_id => params[:id]})  unless course["course_id"] == ""}.compact!
+    params[:exercise]["prerequisites_attributes"] = []
     @exercise = Exercise.new(params[:exercise])
+    
     ActiveRecord::Base.connection.execute "update exercises set order_num = order_num + 1 where order_num >= '#{params[:exercise][:order_num]}'"
 
     respond_to do |format|
       if @exercise.save
+        ActiveRecord::Base.connection.execute "delete from prerequisites where exercise_id = '#{@exercise.id}'"
+        @exercise.prerequisites = new_prerequisites
         format.html { redirect_to([:admin,@exercise], :notice => 'Exercise was successfully created.') }
         format.xml  { render :xml => @exercise, :status => :created, :location => @exercise }
       else
@@ -77,7 +82,7 @@ class Admin::ExercisesController < Admin::ApplicationController
   def update
     puts params[:exercise]["courses"].inspect
     new_prerequisites = params[:exercise]["prerequisites_attributes"].collect{|ind,course| Prerequisite.new({:course_id => course["course_id"].to_i, :exercise_id => params[:id]})  unless course["course_id"] == ""}.compact!
-    params[:exercise]["prerequisites_attributes"] = []
+    
     @exercise = Exercise.find(params[:id])
     if @exercise.order_num < params[:exercise][:order_num].to_i
       ActiveRecord::Base.connection.execute "update exercises set order_num = order_num - 1 where order_num > '#{@exercise.order_num}' and order_num <= '#{params[:exercise][:order_num]}'"
