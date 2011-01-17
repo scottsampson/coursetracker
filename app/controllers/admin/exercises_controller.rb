@@ -82,7 +82,7 @@ class Admin::ExercisesController < Admin::ApplicationController
   def update
     puts params[:exercise]["courses"].inspect
     new_prerequisites = params[:exercise]["prerequisites_attributes"].collect{|ind,course| Prerequisite.new({:course_id => course["course_id"].to_i, :exercise_id => params[:id]})  unless course["course_id"] == ""}.compact!
-    
+    params[:exercise]["prerequisites_attributes"] = []
     @exercise = Exercise.find(params[:id])
     if @exercise.order_num < params[:exercise][:order_num].to_i
       ActiveRecord::Base.connection.execute "update exercises set order_num = order_num - 1 where order_num > '#{@exercise.order_num}' and order_num <= '#{params[:exercise][:order_num]}'"

@@ -33,7 +33,7 @@
   </tr>
   <tr style='display:none' id='tr_exercise_<%= exercise.id.to_s %>'>
     <td colspan='3'>
-      <p><%= exercise.description %></p>
+      <p><%= raw exercise.description %></p>
       <h4>Prerequisites:</h4>
       <ul style='margin-left:15px;'>
         <% exercise.courses.each do |course| %>

@@ -3,7 +3,6 @@
 <table>
   <tr>
     <th>Title</th>
-    <th>Description</th>
     <th></th>
     <th></th>
     <th></th>
@@ -12,7 +11,6 @@
 <% @exercises.each do |exercise| %>
   <tr>
     <td><%= exercise.title %></td>
-    <td><%= exercise.description %></td>
     <td><%= link_to 'Show', [:admin,exercise] %></td>
     <td><%= link_to 'Edit', edit_admin_exercise_path(exercise) %></td>
     <td><%= link_to 'Destroy', [:admin,exercise], :confirm => 'Are you sure?', :method => :delete %></td>
