@@ -13,4 +13,8 @@ class Course < ActiveRecord::Base
   def ==(another_course)
     self.id == another_course.id ? true : false
   end
+  
+  def <=>(another_course)
+    self.name <=> another_course.name
+  end
 end

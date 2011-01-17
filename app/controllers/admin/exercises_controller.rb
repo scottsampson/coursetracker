@@ -30,7 +30,7 @@ class Admin::ExercisesController < Admin::ApplicationController
     for i in 1..@order_count
       @order_options << [i,i]
     end
-    @courses = Course.all
+    @courses = Course.all.sort
     @prereq_course_ids = []
     respond_to do |format|
       format.html # new.html.erb
