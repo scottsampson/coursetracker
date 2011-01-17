@@ -3,7 +3,7 @@ class Admin::ExercisesController < Admin::ApplicationController
   # GET /exercises.xml
   def index
     @exercises = Exercise.all()
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @exercises }
@@ -31,7 +31,7 @@ class Admin::ExercisesController < Admin::ApplicationController
       @order_options << [i,i]
     end
     @courses = Course.all
-    
+    @prereq_course_ids = []
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @exercise }

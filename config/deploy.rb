@@ -28,6 +28,10 @@ role :web, "oops.cloudspace.com"
 role :app, "oops.cloudspace.com"
 role :db, "oops.cloudspace.com", :primary => true
 
+task :chmod_all do
+  run "chmod -R 777 #{current_path}/public"
+end
+
 namespace :deploy do
   task :restart do
     run "touch #{current_path}/tmp/restart.txt"
@@ -42,4 +46,8 @@ namespace :apache do
   task :restart do
     run "service apache2 restart"
   end
+end
+
+after :deploy do
+  chmod_all
 end
