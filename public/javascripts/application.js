@@ -9,12 +9,10 @@ $("document").ready(function(){
     $.ajax({ 
       url: "save_user/" + course_id + "/" + user_id + "/" + know, 
       success: function(data){
-        console.log(id + '_answered');
         $('#' + id + '_answered').hide();
       }});
   });
   $('#course_level_id').change(function() {
-    console.log($('#course_level_id').val());
     $.ajax({
       url: '/admin/courses/level_count/' + $('#course_level_id').val(),
       success: function(data) {
@@ -34,11 +32,9 @@ $("document").ready(function(){
     var exercise_id = id.substring(9);
     var finished = $(this).val();
     var user_id = $('#user').val();
-    console.log('start');
     $.ajax({ 
       url: "save_finished/" + exercise_id + "/" + user_id + "/" + finished, 
       success: function(data){
-        console.log(id + '_answered');
         if(finished == 1) {
           $('#answered_' + exercise_id).show();
         } else {
@@ -46,6 +42,5 @@ $("document").ready(function(){
         }
       }
     });  
-    console.log('done');
   });
 });
