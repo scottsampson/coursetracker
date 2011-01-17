@@ -36,9 +36,13 @@
       <p><%= raw exercise.description %></p>
       <h4>Prerequisites:</h4>
       <ul style='margin-left:15px;'>
-        <% exercise.courses.each do |course| %>
-          <li><%= course.name %></li>
-        <% end %>
+        <% if exercise.courses.length > 0 %>
+          <% exercise.courses.each do |course| %>
+            <li><%= course.name %></li>
+          <% end %>
+        <% else %>
+          None
+        <% end %>  
       </ul>
     </td>
   </tr>
