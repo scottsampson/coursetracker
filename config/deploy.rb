@@ -48,6 +48,11 @@ namespace :apache do
   end
 end
 
+task :copy_old_production do
+  run "cp -f #{previous_release}/config/environments/production.rb #{current_path}/config/environments/production.rb"
+end
+
 after :deploy do
+  copy_old_production
   chmod_all
 end
