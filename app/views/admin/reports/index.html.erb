@@ -9,13 +9,13 @@
     </tr>
     <tr>
       <th>Title</th>
-      <th># don't know</th>
+      <th>Knowledge Score</th>
     </tr>
     <% level_name = course[2] %>
   <% end %>
   <tr>
     <td><%= course[0] %></td>
-    <td><%= course[1] %></td>
+    <td><%= (course[1].nil? ? 0 : course[1].to_i) %>/<%= @total_score %></td>
   </tr>
 <% end %>
 </table>
