@@ -5,7 +5,7 @@ Coursetracker::Application.routes.draw do
     resources :levels
 
     resources :targets
-
+    match 'courses/reorder', :controller => 'courses', :action => 'reorder'
     resources :courses
 
     resources :users
@@ -19,6 +19,7 @@ Coursetracker::Application.routes.draw do
     match 'courses/level_count/:level_id', :controller => 'courses', :action => 'level_count'
     match 'reports', :controller => 'reports', :action => 'index'
     match 'reports/users', :controller => 'reports', :action => 'users'
+    
   end
   
   resources :courses

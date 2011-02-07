@@ -25,6 +25,7 @@
       <td><%= link_to 'Resources', resources_path(:course_id => course.id) %></td>
     </tr>
   <% end %>
+  
 </table>
 <input type="hidden" id="user" value="<%= @current_user.id %>">
 <p><span class='need_to_answer'>*</span> = still need to answer</p>

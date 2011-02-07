@@ -87,9 +87,9 @@ class Admin::CoursesController < Admin::ApplicationController
       ActiveRecord::Base.connection.execute "update courses set order_num = order_num - 1 where order_num > '#{@course.order_num}' and level_id = '#{@course.level_id}'"
     end
     if @course.order_num < params[:course][:order_num].to_i
-      ActiveRecord::Base.connection.execute "update courses set order_num = order_num - 1 where order_num > '#{@course.order_num}' and order_num <= '#{params[:course][:order_num]}'"
+      ActiveRecord::Base.connection.execute "update courses set order_num = order_num - 1 where order_num > '#{@course.order_num}' and order_num <= '#{params[:course][:order_num]}' and level_id ='#{params[:course][:level_id]}'"
     elsif @course.order_num > params[:course][:order_num].to_i
-      ActiveRecord::Base.connection.execute "update courses set order_num = order_num + 1 where order_num >= '#{params[:course][:order_num]}'"
+      ActiveRecord::Base.connection.execute "update courses set order_num = order_num + 1 where order_num >= '#{params[:course][:order_num]}' and level_id ='#{params[:course][:level_id]}'"
     end
 
     respond_to do |format|
@@ -113,5 +113,18 @@ class Admin::CoursesController < Admin::ApplicationController
       format.html { redirect_to(admin_courses_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  def reorder
+    levels = Level.all
+    levels.each { |level|
+      courses = Course.where({:level_id => level.id})
+      courses.each_with_index { |course,index|
+        puts "index " + index.to_s
+        course.order_num = (index + 1)
+        course.save!
+      }
+    }
+    redirect_to(admin_courses_path, :notice => 'Order was successfully updated.')
   end
 end
