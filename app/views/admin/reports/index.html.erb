@@ -3,26 +3,32 @@
 <table width='1000'>
 <% level_name = "" %>
 <% @courses.each do |course| %>
-  <% if course[2] != level_name %>
+  <% if course.level_name != level_name %>
     <tr>
-        <th colspan='2' style='text-align:left;'><br /><br /><%= course[2] %><br /><br /></th>
+        <th colspan='2' style='text-align:left;'><br /><br /><%= course.level_name %><br /><br /></th>
     </tr>
     <tr>
       <th>Title</th>
       <th>Knowledge Score</th>
       <th>Users</th>
-
     </tr>
-    <% level_name = course[2] %>
+    <% level_name = course.level_name %>
   <% end %>
-  <tr>	
-    <td><%= course[0] %></td>
-    <td><%= (course[1].nil? ? 0 : course[1].to_i) %>/<%= @total_score %></td>
+  <tr>
+    <td><%= course.name %></td>
+    <td>
+      <%= course.know_score || 0 %>/<%= @total_score %>
+    </td>
     <td style="width:800px">
-		<span class="red"><%= not_competent(course[0]) %></span> <span class="yellow"><%= novice(course[0]) %></span></td>
-
+		<span class="red"><%= course.not_competent %></span> <span class="yellow"><%= course.novice %></span></td>
   </tr>
 <% end %>
-</table>
+	</table>
 
-<br />
+	<br />
+
+
+
+
+
+
