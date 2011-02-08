@@ -17,4 +17,12 @@ class Course < ActiveRecord::Base
   def <=>(another_course)
     self.name <=> another_course.name
   end
+  
+  # def novice
+  #   self.courses_users.low_scores.collect{|score| score.user.username}.join(',')
+  # end
+  # 
+  # def not_competent
+  #   self.courses_users.really_low_scores.collect{|score| score.user.username}.join(',')
+  # end
 end
