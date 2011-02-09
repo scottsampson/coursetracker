@@ -14,7 +14,7 @@ class Admin::ReportsController < Admin::ApplicationController
     # @total_score = User.count() * 2;
     #this is what i changed
     
-    @courses = Course.with_know_score.includes.include(:courses_users) 
+    @courses = Course.with_know_score.includes
     @total_score = User.count * 2
     
     respond_to do |format|
