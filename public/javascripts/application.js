@@ -20,6 +20,21 @@ $("document").ready(function(){
       }
     });
   });
+
+		//the ajax approach
+	  // $('.selecturl').change(function() {
+	  // 			 $.ajax({
+	  // 		      url: '/admin/reports?sort_order=' + $(this).val(),
+	  // 		      success: function(data) {
+	  // 		        $('#course_order_num').html(data);
+	  // 		      }
+	  // 		    });
+	  // });
+	
+		//the non-ajax approach which is what I have currently implemented
+	  $('.selecturl').change(function() {
+			window.location.href = "http://" + window.location.host + window.location.pathname + '?sort_order='+ escape($(this).val());
+	  });
   
   $('.exercise_details').click(function() {
     var id = $(this).attr('id').substring(17);

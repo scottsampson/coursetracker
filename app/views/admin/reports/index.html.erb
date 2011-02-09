@@ -1,5 +1,12 @@
 <h1>Courses that need to be learned.</h1>
-
+<% form_for :reports, :url => { :action => "index" } do |a| %>
+	    <span></span>
+	    <select class="selecturl">
+		    <option value="">Sort by...</option> 
+		    <option value="know_score">Knowledge Score</option> 
+		    <option value="order_num">Order Number</option>
+	    </select>
+<% end %>
 <table width='1000'>
 <% level_name = "" %>
 <% @courses.each do |course| %>
