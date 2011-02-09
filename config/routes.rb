@@ -19,6 +19,7 @@ Coursetracker::Application.routes.draw do
     match 'courses/level_count/:level_id', :controller => 'courses', :action => 'level_count'
     match 'reports', :controller => 'reports', :action => 'index'
     match 'reports/users', :controller => 'reports', :action => 'users'
+    match 'reports/courses', :controller => 'reports', :action => 'courses'
     
   end
   

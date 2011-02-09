@@ -14,9 +14,8 @@ class Admin::ReportsController < Admin::ApplicationController
     # @total_score = User.count() * 2;
     #this is what i changed
     
-    @courses = Course.with_know_score
+    @courses = Course.with_know_score.includes.include(:courses_users) 
     @total_score = User.count * 2
-
     
     respond_to do |format|
       format.html # index.html.erb
@@ -33,5 +32,10 @@ class Admin::ReportsController < Admin::ApplicationController
     respond_to do |format|
       format.html # index.html.erb
     end
+  end
+  
+  def courses
+    #courses without prerequisites
+    @courses = Course.where("id not in (select course_id from prerequisites)") 
   end
 end
