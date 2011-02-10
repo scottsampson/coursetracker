@@ -16,6 +16,7 @@ class Admin::ReportsController < Admin::ApplicationController
     
     @courses = Course.with_know_score('know_score')
     @courses = Course.with_know_score(params[:sort_order]) unless params[:sort_order].nil?
+    @turn_red = params[:sort_order] == "order_num" ? true : false
     
     @total_score = User.count * 2
     

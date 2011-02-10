@@ -13,4 +13,9 @@ module ApplicationHelper
     course = Course.find_by_name(course_string)
     course.courses_users.low_scores.collect{|score| score.user.username}.join(', ') if course
   end
+  
+  def over_half(score,total)
+    score = 0 if score.nil?
+    score/total.to_f > 0.50
+  end
 end

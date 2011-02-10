@@ -16,7 +16,7 @@ class Course < ActiveRecord::Base
                                             :order =>  "level_id, #{sort}" } }
   
 
-  # default_scope order('level_id, order_num')  
+  default_scope order('level_id, order_num')  
   
   #this is used in the reports
   attr_accessor :dont_know 

@@ -22,7 +22,12 @@
     <% level_name = course.level_name %>
   <% end %>
   <tr>
-    <td><%= course.name %></td>
+	<% if @turn_red %>
+	
+    <td <%= over_half(course.know_score,@total_score) ? "class='red' " : "" %>><%= course.name %></td>
+	<% else %>
+  	<td><%= course.name %></td>
+	<% end %>
     <td>
       <%= course.know_score || 0 %>/<%= @total_score %>
     </td>
