@@ -1,0 +1,81 @@
+<html>
+<head>
+	<title>Votes</title>
+	
+
+<script type='text/javascript' src='/javascripts/jquery.pack.js'></script>
+<script type='text/javascript'>
+$(function(){
+	$("a.vote_up").click(function(){
+	//get the id
+	the_id = $(this).attr('id');
+	
+	// show the spinner
+	$(this).parent().html("<img src='images/spinner.gif'/>");
+	
+	//fadeout the vote-count 
+	$("span#votes_count"+the_id).fadeOut("fast");
+	
+	//the main ajax request
+		$.ajax({
+			type: "POST",
+			url: '/links/' + $(this).attr("id") + '/vote_up',
+      dataType: "json",
+			success: function(msg)
+			{
+				$("span#votes_count"+the_id).html(msg.count);
+				//fadein the vote count
+				$("span#votes_count"+the_id).fadeIn();
+				//remove the spinner
+				$("span#vote_buttons"+the_id).remove();
+			}
+		});
+	});
+	
+	$("a.vote_down").click(function(){
+	//get the id
+	the_id = $(this).attr('id');
+	
+	// show the spinner
+	$(this).parent().html("<img src='images/spinner.gif'/>");
+	
+	//the main ajax request
+		$.ajax({
+			type: "POST",
+			url: '/links/' + $(this).attr("id") + '/vote_down',
+      dataType: "json",
+			success: function(msg)
+			{
+				$("span#votes_count"+the_id).fadeOut();
+				$("span#votes_count"+the_id).html(msg.count);
+				$("span#votes_count"+the_id).fadeIn();
+				$("span#vote_buttons"+the_id).remove();
+			}
+		});
+	});
+});	
+</script>
+
+</head>
+<body>
+	<h1>Helpful links</h1>
+	
+	<% @links.each do |link| %>
+<div class='entry'>
+
+	<span class='link'>
+		<a href='<%= link.url %>' TARGET="_blank"> <%= link.url %> </a>
+	</span>
+
+	
+	<span class='votes_count' id='votes_count<%= link.id %>'><%= link.votes.count %> votes</span>
+	
+	<span class='vote_buttons' id='vote_buttons<%= link.id %>'>
+		<a href='javascript:;' class='vote_up' id='<%= link.id %>'>Vote Up!</a>
+		<a href='javascript:;' class='vote_down' id='<%= link.id %>'>Vote Down!</a>
+	</span>
+</div>
+  <% end %>
+
+</body>
+</html>

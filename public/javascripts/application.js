@@ -55,7 +55,9 @@ $("document").ready(function(){
         } else {
           $('#answered_' + exercise_id).hide();
         }
-				window.location.href = "http://" + window.location.host + window.location.pathname;
+				if(finished > 0){
+					window.location.href = "http://" + window.location.host + window.location.pathname;
+				}
       }
     });  
   });

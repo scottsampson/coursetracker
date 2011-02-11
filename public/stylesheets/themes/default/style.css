@@ -7,9 +7,46 @@
 a:link, a:visited, a:hover, a:active, h1, h2, h3 { color: #7A1818; }
 a { -moz-outline: none; }
 
+a {
+outline:none;
+}
+
+.entry {
+	width: 950px;
+	background: #ffffff;
+	padding:8px;
+	border:1px solid #bbbbbb;
+	margin:5px auto;
+	-moz-border-radius:8px;
+}
+
+span.link a {
+	font-size:150%;
+	color: #000000;
+	text-decoration:none;
+}
+
+a.vote_up, a.vote_down {
+	display:inline-block;
+	background-repeat:none;
+	background-position:center;
+	height:16px;
+	width:16px;
+	margin-left:4px;
+	text-indent:-900%;
+}
+
+a.vote_up {
+	background:url("/images/thumb_up.png");
+}
+
+a.vote_down {
+	background:url("/images/thumb_down.png");
+}
+
 body {
   color: #222;
-  background: #e5e5e5;
+  background: #e8e6de;
   font-family: helvetica, arial, sans-serif;
 }
 

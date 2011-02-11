@@ -16,6 +16,6 @@ module ApplicationHelper
   
   def over_half(score,total)
     score = 0 if score.nil?
-    score/total.to_f > 0.50
+    score/total.to_f < 0.50
   end
 end

@@ -7,6 +7,7 @@ gem 'rails', '3.0.0'
 
 gem 'mysql2'
 gem 'oauth'
+gem 'thumbs_up'
 gem 'twitter_oauth'
 
 # Use unicorn as the web server

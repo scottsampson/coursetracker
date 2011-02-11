@@ -1,4 +1,10 @@
 Coursetracker::Application.routes.draw do
+  resources :links do
+    match 'vote_up', :controller => 'links', :action => 'vote_up'
+    match 'vote_down', :controller => 'links', :action => 'vote_down'
+  end
+  
+
   resources :exercises
 
   namespace :admin do
@@ -20,6 +26,7 @@ Coursetracker::Application.routes.draw do
     match 'reports', :controller => 'reports', :action => 'index'
     match 'reports/users', :controller => 'reports', :action => 'users'
     match 'reports/courses', :controller => 'reports', :action => 'courses'
+    
     
   end
   

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  acts_as_voter
   has_many :courses_users
   has_many :courses, :through => :courses_users
   has_many :finished_exercises
