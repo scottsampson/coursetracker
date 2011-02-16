@@ -10,6 +10,7 @@ gem 'oauth'
 gem 'thumbs_up'
 gem 'twitter_oauth'
 gem 'cucumber'
+gem 'webrat'
 
 # Use unicorn as the web server
 # gem 'unicorn'
