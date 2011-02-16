@@ -9,6 +9,7 @@ gem 'mysql2'
 gem 'oauth'
 gem 'thumbs_up'
 gem 'twitter_oauth'
+gem 'cucumber'
 
 # Use unicorn as the web server
 # gem 'unicorn'
