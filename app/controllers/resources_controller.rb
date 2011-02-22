@@ -13,7 +13,7 @@ class ResourcesController < ApplicationController
       format.xml  { render :xml => @resources }
     end
   end
-
+  
   # GET /admin/resources/1
   # GET /admin/resources/1.xml
   def show
@@ -47,8 +47,10 @@ class ResourcesController < ApplicationController
 
     respond_to do |format|
       if @resource.save
-        format.html { redirect_to([:admin,@resource], :notice => 'Resource was successfully created.') }
-        format.xml  { render :xml => [:admin,@resource], :status => :created, :location => @admin_resource }
+        ajax_notice = "Resource created"
+        # format.json { render :json => {:msg => ajax_notice }}
+        format.html { redirect_to(courses_path, :notice => 'Resource was successfully created.') }
+        # format.xml  { render :xml => [:admin,@resource], :status => :created, :location => @admin_resource }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @admin_resource.errors, :status => :unprocessable_entity }

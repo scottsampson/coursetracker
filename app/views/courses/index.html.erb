@@ -43,6 +43,16 @@ $(function(){
 					<ul>
 					<li>NO resources yet
 						</li>
+						<li><%= form_for(@resource) do |f| %>
+						  <div class="field">
+						    <%= f.text_field :url %>
+						    <%= f.hidden_field :course_id, :value => course.id %>
+						
+						  </div>
+						  <div class="actions">
+						    <%= f.submit "Create" %>
+						  </div>
+						<% end %></li>
 					</ul>
 				</td>
 			<% else %>
@@ -51,6 +61,15 @@ $(function(){
 					<% course.resources.each do |resource| %>
 						<li><%= resource.url %></li>
 					<% end %>
+					<li><%= form_for(@resource) do |f| %>
+					  <div class="field">
+					    <%= f.text_field :url %>
+					    <%= f.hidden_field :course_id, :value => course.id %>
+					  </div>
+					  <div class="actions">
+					    <%= f.submit "Create" %>
+					  </div>
+					<% end %></li>
 				 </ul>
 		    </td>
 			<% end %>
