@@ -1,3 +1,15 @@
+<script type="text/javascript" charset="utf-8">
+$(function(){
+	$('.resource_link').click(function(e){
+		// $(this).parents('tr').next('tr.hidden_resource').slideToggle();
+		$(this).parents('tr').next('tr.hidden_resource').fadeToggle("slow", "linear");
+		e.preventDefault();
+	});
+});
+
+</script>
+
+
 <p>Please select whether you already know the subjects below.</p>
 <p>If you don't know something, please learn it in the order it appears.  Please update this list frequently!</p>
 <table class="subject_list">
@@ -22,8 +34,27 @@
           <span class="need_to_answer" id="<%= 'know_' + course.id.to_s + '_answered' %>">*</span>
         <% end %>
       </td>
-      <td><%= link_to 'Resources', resources_path(:course_id => course.id) %></td>
+      <td><%= link_to 'Resources', resources_path(:course_id => course.id), :class => "resource_link" %></td>
+			
     </tr>
+		<tr class="hidden_resource">
+			<% if course.resources.empty? %>
+				<td class="no_resources">
+					<ul>
+					<li>NO resources yet
+						</li>
+					</ul>
+				</td>
+			<% else %>
+				<td class="resources_present">
+					<ul>
+					<% course.resources.each do |resource| %>
+						<li><%= resource.url %></li>
+					<% end %>
+				 </ul>
+		    </td>
+			<% end %>
+		</tr>
   <% end %>
   
 </table>

@@ -59,6 +59,22 @@ hr {
   background: #7A1818;
 }
 
+.hidden_resource{
+	display:none;
+}
+
+.no_resources ul li{
+	color:#990000;
+	list-style: none outside none;
+  margin-left: 8px;
+}
+
+.resources_present ul li{
+	color: #669900;
+  list-style: none outside none;
+  margin-left: 8px;
+}
+
 #header h1 {
   padding: 15px 0;
 }
