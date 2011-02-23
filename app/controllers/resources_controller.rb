@@ -47,9 +47,9 @@ class ResourcesController < ApplicationController
 
     respond_to do |format|
       if @resource.save
-        ajax_notice = "Resource created"
-        # format.json { render :json => {:msg => ajax_notice }}
-        format.html { redirect_to(courses_path, :notice => 'Resource was successfully created.') }
+        url = @resource.url
+         format.json { render :json => {:url => url }}
+        # format.html { redirect_to(courses_path, :notice => 'Resource was successfully created.') }
         # format.xml  { render :xml => [:admin,@resource], :status => :created, :location => @admin_resource }
       else
         format.html { render :action => "new" }

@@ -5,6 +5,31 @@ $(function(){
 		$(this).parents('tr').next('tr.hidden_resource').fadeToggle("slow", "linear");
 		e.preventDefault();
 	});
+	
+	$('form').submit(function(e){
+		$(this).find('#resource_submit').hide();
+		$(this).find('.noShow').show();
+		that = $(this);
+    // $.post('/resources', $(this).serialize(), null, "script");
+		$.ajax({
+					type: "POST",
+      		dataType: "json",
+				  data: $(this).serialize(),
+		      url: '/resources',
+		      success: function(data) {
+						parrentTR = that.parents('tr')
+						that.find('.noShow').hide();		
+						that.find('#resource_submit').show();
+						that.parents('tr').find('.success').html(data.url + " created");
+						that.find('#resource_url').val("");
+						parrentTR.find('.none_so_far').hide();
+						parrentTR.find('.no_resources').addClass('resources_present');
+						parrentTR.find('.no_resources').removeClass('no_resources');						
+						parrentTR.find('li:last').prev().after('<li><a href="' + data.url + '">' + data.url + '</a></li>');
+		      }
+		    });
+		e.preventDefault();
+	});
 });
 
 </script>
@@ -41,7 +66,7 @@ $(function(){
 			<% if course.resources.empty? %>
 				<td class="no_resources">
 					<ul>
-					<li>NO resources yet
+					<li class="none_so_far">NO resources yet
 						</li>
 						<li><%= form_for(@resource) do |f| %>
 						  <div class="field">
@@ -51,15 +76,16 @@ $(function(){
 						  </div>
 						  <div class="actions">
 						    <%= f.submit "Create" %>
+								<img src="/images/spinner.gif" class="noShow" />
 						  </div>
 						<% end %></li>
 					</ul>
-				</td>
+				</td><td class="success"></td>
 			<% else %>
 				<td class="resources_present">
 					<ul>
 					<% course.resources.each do |resource| %>
-						<li><%= resource.url %></li>
+						<li class="urls"><%= link_to resource.url, resource.url %></li>
 					<% end %>
 					<li><%= form_for(@resource) do |f| %>
 					  <div class="field">
@@ -68,10 +94,11 @@ $(function(){
 					  </div>
 					  <div class="actions">
 					    <%= f.submit "Create" %>
+							<img src="/images/spinner.gif" class="noShow" />
 					  </div>
 					<% end %></li>
 				 </ul>
-		    </td>
+				</td><td class="success"></td>
 			<% end %>
 		</tr>
   <% end %>
