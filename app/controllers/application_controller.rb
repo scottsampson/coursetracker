@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   
   before_filter :login_required, :except => [:login, :welcome, :authenticate, :fake_login]
   
+  def show_navigation(val)
+    @show_navigation = val
+  end
+  
   private
   
     def login_required

@@ -1,4 +1,10 @@
 Coursetracker::Application.routes.draw do
+  namespace :admin do resources :questions end
+
+  namespace :admin do resources :answers end
+
+  namespace :admin do resources :projects end
+
   resources :links do
     match 'vote_up', :controller => 'links', :action => 'vote_up'
     match 'vote_down', :controller => 'links', :action => 'vote_down'
@@ -6,9 +12,18 @@ Coursetracker::Application.routes.draw do
   
 
   resources :exercises
-
+  
+  match 'answers/answer_questions' => 'answers#answer_questions', :method => 'post'
+  match 'answers/save_answers' => 'answers#save_answers', :method => 'post'
+  match 'answers/project_select' => 'answers#project_select'
+  
+  resources :answers
+  
   namespace :admin do
     resources :levels
+    resources :projects
+    resources :answers
+    resources :questions
 
     resources :targets
     match 'courses/reorder', :controller => 'courses', :action => 'reorder'

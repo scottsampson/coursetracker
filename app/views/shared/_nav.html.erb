@@ -3,6 +3,6 @@
   <li><%= link_to 'Exercises', exercises_path, :class => ( "on" if current_tab?('exercise') ) %></li>
   <li><%= link_to 'Links', links_path, :class => ( "on" if current_tab?('link') ) %></li>
   <li><%= link_to 'Add Links', new_link_path, :class => ( "on" if current_tab?('link') ) %></li>
-
+  <li><%= link_to 'Debrief', answers_project_select_path, :class => ( "on" if current_tab?('answer') ) %></li>
 </ul>
 <div class="clear">&nbsp;</div>
