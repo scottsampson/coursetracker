@@ -12,6 +12,7 @@ class CoursesController < ApplicationController
   
   def index
     @courses = Course.all
+    @resource = Resource.new
     @levels = Level.all
     @current_level = -1;
 

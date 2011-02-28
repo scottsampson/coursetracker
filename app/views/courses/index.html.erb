@@ -1,3 +1,40 @@
+<script type="text/javascript" charset="utf-8">
+$(function(){
+	$('.resource_link').click(function(e){
+		// $(this).parents('tr').next('tr.hidden_resource').slideToggle();
+		$(this).parents('tr').next('tr.hidden_resource').fadeToggle("slow", "linear");
+		e.preventDefault();
+	});
+	
+	$('form').submit(function(e){
+		$(this).find('#resource_submit').hide();
+		$(this).find('.noShow').show();
+		that = $(this);
+    // $.post('/resources', $(this).serialize(), null, "script");
+		$.ajax({
+					type: "POST",
+      		dataType: "json",
+				  data: $(this).serialize(),
+		      url: '/resources',
+		      success: function(data) {
+						parrentTR = that.parents('tr')
+						that.find('.noShow').hide();		
+						that.find('#resource_submit').show();
+						that.parents('tr').find('.success').html(data.url + " created");
+						that.find('#resource_url').val("");
+						parrentTR.find('.none_so_far').hide();
+						parrentTR.find('.no_resources').addClass('resources_present');
+						parrentTR.find('.no_resources').removeClass('no_resources');						
+						parrentTR.find('li:last').prev().after('<li><a href="' + data.url + '">' + data.url + '</a></li>');
+		      }
+		    });
+		e.preventDefault();
+	});
+});
+
+</script>
+
+
 <p>Please select whether you already know the subjects below.</p>
 <p>If you don't know something, please learn it in the order it appears.  Please update this list frequently!</p>
 <table class="subject_list">
@@ -22,8 +59,48 @@
           <span class="need_to_answer" id="<%= 'know_' + course.id.to_s + '_answered' %>">*</span>
         <% end %>
       </td>
-      <td><%= link_to 'Resources', resources_path(:course_id => course.id) %></td>
+      <td><%= link_to 'Resources', resources_path(:course_id => course.id), :class => "resource_link" %></td>
+			
     </tr>
+		<tr class="hidden_resource">
+			<% if course.resources.empty? %>
+				<td class="no_resources">
+					<ul>
+					<li class="none_so_far">NO resources yet
+						</li>
+						<li><%= form_for(@resource) do |f| %>
+						  <div class="field">
+						    <%= f.text_field :url %>
+						    <%= f.hidden_field :course_id, :value => course.id %>
+						
+						  </div>
+						  <div class="actions">
+						    <%= f.submit "Create" %>
+								<img src="/images/spinner.gif" class="noShow" />
+						  </div>
+						<% end %></li>
+					</ul>
+				</td><td class="success"></td>
+			<% else %>
+				<td class="resources_present">
+					<ul>
+					<% course.resources.each do |resource| %>
+						<li class="urls"><%= link_to resource.url, resource.url %></li>
+					<% end %>
+					<li><%= form_for(@resource) do |f| %>
+					  <div class="field">
+					    <%= f.text_field :url %>
+					    <%= f.hidden_field :course_id, :value => course.id %>
+					  </div>
+					  <div class="actions">
+					    <%= f.submit "Create" %>
+							<img src="/images/spinner.gif" class="noShow" />
+					  </div>
+					<% end %></li>
+				 </ul>
+				</td><td class="success"></td>
+			<% end %>
+		</tr>
   <% end %>
   
 </table>

@@ -46,4 +46,9 @@ Coursetracker::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
+  
+  TWITTER_CONSUMER_KEY = 'WM0znBXrjyQyVMuYFdqg'
+  TWITTER_CONSUMER_SECRET = 'Jq5l4kchhBvKHS98IBdIcynn7VMFE3paDSdKggoQF0'
+  TWITTER_CALLBACK_URL = 'http://local.coursetracker.com/authenticate'
 end

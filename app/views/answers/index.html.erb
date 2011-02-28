@@ -1,0 +1,33 @@
+<h1>Listing answers</h1>
+
+<%= form_for(@answer, :url => url_for(:action => 'index',:controller => 'answers'), :html => { :method => :get }) do |f| %>
+  <div class="field">
+    <%= f.label :project_id %><br />
+    <%= f.select :project_id,options_for_select((@projects.map{ |project| [project.name,project.id]})) %>
+    <%= f.submit 'Get Answers' %>
+  </div>
+<% end %>
+
+<% if @answers.nil? %>
+  <p>Please select a project</p>
+<% else %>
+  <table>
+  <% count = 1 %>
+  <% previous_question = '' %>
+  <% @answers.each do |answer| %>
+    <% if answer.question != previous_question %>
+      <% count = 1 %>
+      <tr>
+        <th colspan='2' style='text-align:left;'><%= answer.question %></td>
+      </tr>
+      <% previous_question = answer.question %>
+    <% end %>
+    <tr>
+      <td>&nbsp;</td>
+      <td><%= count.to_s %>)</td>
+      <td><%= answer.answer %></td>
+    </tr>
+    <% count += 1 %>
+  <% end %>
+  </table>
+<% end %>

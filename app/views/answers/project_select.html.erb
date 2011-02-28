@@ -1,0 +1,28 @@
+<h1>Project Debriefing</h1>
+
+<p>You will answer a few questions based on the project you just completed.</p>
+
+<p>Please select your project below and click next.</p>
+
+<%= form_for(@answer, :url => answers_answer_questions_path()) do |f| %>
+  <% if @answer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
+
+      <ul>
+      <% @answer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :project_id %><br />
+    <%= f.select :project_id,options_for_select([['Choose One','']] + (@projects.map{ |project| [project.name,project.id]})) %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'next' %>
+  </div>
+  <%= hidden_field_tag 'format','html' %>
+<% end %>
