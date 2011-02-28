@@ -1,8 +1,8 @@
-class Admin::QuestionsController < Admin::ApplicationController
+class QuestionsController < ApplicationController
   # GET /admin/questions
   # GET /admin/questions.xml
   def index
-    @questions = Admin::Question.all
+    @questions = Question.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   # GET /admin/questions/1
   # GET /admin/questions/1.xml
   def show
-    @question = Admin::Question.find(params[:id])
+    @question = Question.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   # GET /admin/questions/new
   # GET /admin/questions/new.xml
   def new
-    @question = Admin::Question.new
+    @question = Question.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +34,13 @@ class Admin::QuestionsController < Admin::ApplicationController
 
   # GET /admin/questions/1/edit
   def edit
-    @question = Admin::Question.find(params[:id])
+    @question = Question.find(params[:id])
   end
 
   # POST /admin/questions
   # POST /admin/questions.xml
   def create
-    @question = Admin::Question.new(params[:question])
+    @question = Question.new(params[:question])
 
     respond_to do |format|
       if @question.save
@@ -57,7 +57,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   # PUT /admin/questions/1
   # PUT /admin/questions/1.xml
   def update
-    @question = Admin::Question.find(params[:id])
+    @question = Question.find(params[:id])
 
     respond_to do |format|
       if @question.update_attributes(params[:question])
@@ -73,7 +73,7 @@ class Admin::QuestionsController < Admin::ApplicationController
   # DELETE /admin/questions/1
   # DELETE /admin/questions/1.xml
   def destroy
-    @question = Admin::Question.find(params[:id])
+    @question = Question.find(params[:id])
     @question.destroy
 
     respond_to do |format|

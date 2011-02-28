@@ -1,8 +1,8 @@
-class Admin::ProjectsController < Admin::ApplicationController
+class ProjectsController < ApplicationController
   # GET /admin/projects
   # GET /admin/projects.xml
   def index
-    @projects = Admin::Project.all
+    @projects = Project.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class Admin::ProjectsController < Admin::ApplicationController
   # GET /admin/projects/1
   # GET /admin/projects/1.xml
   def show
-    @project = Admin::Project.find(params[:id])
+    @project = Project.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class Admin::ProjectsController < Admin::ApplicationController
   # GET /admin/projects/new
   # GET /admin/projects/new.xml
   def new
-    @project = Admin::Project.new
+    @project = Project.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +34,13 @@ class Admin::ProjectsController < Admin::ApplicationController
 
   # GET /admin/projects/1/edit
   def edit
-    @project = Admin::Project.find(params[:id])
+    @project = Project.find(params[:id])
   end
 
   # POST /admin/projects
   # POST /admin/projects.xml
   def create
-    @project = Admin::Project.new(params[:project])
+    @project = Project.new(params[:project])
 
     respond_to do |format|
       if @project.save
@@ -56,7 +56,7 @@ class Admin::ProjectsController < Admin::ApplicationController
   # PUT /admin/projects/1
   # PUT /admin/projects/1.xml
   def update
-    @project = Admin::Project.find(params[:id])
+    @project = Project.find(params[:id])
 
     respond_to do |format|
       if @project.update_attributes(params[:project])
@@ -72,7 +72,7 @@ class Admin::ProjectsController < Admin::ApplicationController
   # DELETE /admin/projects/1
   # DELETE /admin/projects/1.xml
   def destroy
-    @project = Admin::Project.find(params[:id])
+    @project = Project.find(params[:id])
     @project.destroy
 
     respond_to do |format|
