@@ -1,10 +1,4 @@
 Coursetracker::Application.routes.draw do
-  namespace :admin do resources :questions end
-
-  namespace :admin do resources :answers end
-
-  namespace :admin do resources :projects end
-
   resources :links do
     match 'vote_up', :controller => 'links', :action => 'vote_up'
     match 'vote_down', :controller => 'links', :action => 'vote_down'
