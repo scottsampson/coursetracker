@@ -35,6 +35,6 @@ class Course < ActiveRecord::Base
   end
   
   def not_competent
-    self.courses_users.really_low_scores.collect{|score| score.user.username}.join(', ')
+    self.courses_users.really_low_scores.collect{|score| score.user.name}.join(', ')
   end
 end

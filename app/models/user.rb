@@ -20,5 +20,8 @@ class User < ActiveRecord::Base
   def known_expert
     self.courses.collect{|course| course if course.courses_users.first.know == true && course.level_id == 3 }.compact
   end
-    
+  
+  def name
+    full_name ? full_name : username
+  end
 end

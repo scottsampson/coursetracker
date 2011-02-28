@@ -1,6 +1,6 @@
 class AddOrderToCourses < ActiveRecord::Migration
   def self.up
-    execute "alter table courses add order_num int(4)"
+    execute "alter table courses add order_num int(4)"    
   end
 
   def self.down
