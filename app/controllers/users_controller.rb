@@ -37,8 +37,12 @@ class UsersController < ApplicationController
     if client.authorized?
       RAILS_DEFAULT_LOGGER.info c("\n\nclient.user -- #{client.user.inspect}\n\n")
       user = User.find_by_username(client.user.first['user']['screen_name'])
+      if user.full_name.blank?
+        user.update_attributes!({:full_name => client.user.first['user']['name']})
+      end
       if user.nil?
         user = User.create(:username => client.user.first['user']['screen_name'], 
+                    :full_name => client.user.first['user']['name'],
                     :image => client.user.first['user']['profile_image_url'], 
                     :oauth_token => access_token.params[:oauth_token],
                     :oauth_secret => access_token.params[:oauth_token_secret])

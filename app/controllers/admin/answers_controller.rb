@@ -1,4 +1,5 @@
-class AnswersController < ApplicationController
+class Admin::AnswersController < Admin::ApplicationController
+  
   # GET /admin/answers
   # GET /admin/answers.xml
   def index
