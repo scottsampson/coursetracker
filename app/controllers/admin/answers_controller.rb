@@ -2,8 +2,22 @@ class Admin::AnswersController < Admin::ApplicationController
   
   # GET /admin/answers
   # GET /admin/answers.xml
+  # def index
+  #   @answers = Answer.all
+  # 
+  #   respond_to do |format|
+  #     format.html # index.html.erb
+  #     format.xml  { render :xml => @answers }
+  #   end
+  # end
+  # 
   def index
-    @answers = Answer.all
+    @questions = Question.all
+    @projects = Project.all
+    if !params['answer'].nil?
+      @answers = Answer.select("questions.question, answers.*").joins("join questions on questions.id = answers.question_id").where(:project_id => params['answer']['project_id']).order("answers.question_id")
+    end
+    @answer = Answer.new
 
     respond_to do |format|
       format.html # index.html.erb
