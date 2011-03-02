@@ -22,13 +22,20 @@ class CoursesController < ApplicationController
     end
   end
   
-  def project_create
-    @project = Project.new(params[:project])
-    if @project.save
-      redirect_to(answers_answer_questions_path(@project.id), :notice => "Tech added to #{@project.name}")
-    else
-      render :action => "new" 
+  def project_tech
+    @project = Project.find_by_id(params[:project_id])
+    params['question_ids'].each do |answer|
+      puts answer.inspect
+      values = {:question_id => answer[0],:answer => answer[1], :project_id => params['project_id']}
+      Answer.create(values)
     end
+    params['project']['course_ids'].each do |answer|
+      puts answer.inspect
+      values = {:course_id => answer,:user_id => @current_user.id, :project_id => @project.id}
+      Tech.create(values)
+    end
+    redirect_to(answers_project_select_path, :notice => "Tech added to #{@project.name}")
+
   end
 
   # GET /courses/1
