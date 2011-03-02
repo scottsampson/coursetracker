@@ -1,3 +1,33 @@
+
+<h2>What tech was used during this project?</h2>
+
+	<% count = 0 %>
+	<% form_for :project, :url => courses_project_create_path do |f| %>
+	<table border="0" cellspacing="10" cellpadding="10">
+	
+	  <% @courses.each do |course| -%>
+			<% if count == 0 %>
+	    	<tr>
+			<% end %>
+				<td>
+	      <%= check_box_tag :course_ids, course.id, @project.courses.include?(course), :name => 'project[course_ids][]' -%>
+	      <%= label_tag :course_ids, course.name -%>
+	    </td>
+		<% count += 1 %>
+		<% if count == 6 %>
+    	</tr>
+		<% end %>
+		<% count = 0 if count == 6 %>
+	  <% end -%>
+	</table>
+	  <%= submit_tag -%>
+	<% end -%>
+
+
+
+
+
+
 <h1>Answer Questions</h1>
 
 <p>Please answer the questions below about <%= @project.name %></p>

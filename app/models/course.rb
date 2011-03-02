@@ -6,6 +6,8 @@ class Course < ActiveRecord::Base
   has_many :users, :through => :courses_users
   has_many :prerequisites
   has_many :exercises, :through => :prerequisites
+  has_many :techs, :dependent => :destroy
+  has_many :projects, :through => :techs
   # scope :with_know_score, lambda { |sort| {  
   #   joins("left JOIN `courses_users` ON `courses_users`.`course_id` = `courses`.`id` INNER JOIN `levels` ON `levels`.`id` = `courses`.`level_id`").group("courses.id").select(["courses.*"," sum(courses_users.know) as know_score, levels.name as level_name"]).order('level_id, know_score') 
   #    } 

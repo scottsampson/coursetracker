@@ -7,10 +7,10 @@ Coursetracker::Application.routes.draw do
 
   resources :exercises
   
-  match 'answers/answer_questions' => 'answers#answer_questions', :method => 'post'
+  match 'answers/answer_questions/' => 'answers#answer_questions', :method => 'post'
   match 'answers/save_answers' => 'answers#save_answers', :method => 'post'
   match 'answers/project_select' => 'answers#project_select'
-  
+  match 'courses/project_create' => 'courses#project_create', :method => 'post'
   resources :answers
   
   namespace :admin do

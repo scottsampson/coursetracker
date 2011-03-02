@@ -20,7 +20,7 @@ class AnswersController < ApplicationController
     @questions = Question.all
     @answer = Answer.new
     @project = Project.find_by_id(params['answer']['project_id']);
-            
+    @courses = Course.all      
     respond_to do |format|
       format.html # index.html.erb
     end

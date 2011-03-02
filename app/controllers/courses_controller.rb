@@ -21,6 +21,15 @@ class CoursesController < ApplicationController
       format.xml  { render :xml => @courses }
     end
   end
+  
+  def project_create
+    @project = Project.new(params[:project])
+    if @project.save
+      redirect_to(answers_answer_questions_path(@project.id), :notice => "Tech added to #{@project.name}")
+    else
+      render :action => "new" 
+    end
+  end
 
   # GET /courses/1
   # GET /courses/1.xml
