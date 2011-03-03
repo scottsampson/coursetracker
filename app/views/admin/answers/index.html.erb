@@ -8,16 +8,9 @@
   </div>
 <% end %>
 
-<h1>What tech was used during this project?</h1>
-	<table>
-  <% @project.techs.map(&:user_id).uniq.compact.each do |user_id| %>
-    <tr>
-      <td>&nbsp;</td>
-      <td width='13%'><%= get_user_info(user_id) %> </td>
-      <td><%= get_user_courses(user_id, @project.id) %></td>
-    </tr>
-  <% end %>
-  </table>
+
+<%= render :partial => 'tech' if @project %>
+
 
 <% if @answers.nil? %>
   <p>Please select a project</p>

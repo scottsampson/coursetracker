@@ -14,8 +14,8 @@ class Admin::AnswersController < Admin::ApplicationController
   def index
     @questions = Question.all
     @projects = Project.all
-    @project = Project.find_by_id(params['answer']['project_id'])
     if !params['answer'].nil?
+      @project = Project.find_by_id(params['answer']['project_id'])
       @answers = Answer.select("questions.question, answers.*").joins("join questions on questions.id = answers.question_id").where(:project_id => @project.id).order("answers.question_id")
     end
     @answer = Answer.new
