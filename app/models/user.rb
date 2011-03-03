@@ -24,4 +24,19 @@ class User < ActiveRecord::Base
   def name
     full_name ? full_name : username
   end
+  
+  def update_courses(course_ids)
+    all_course_users = self.courses_users
+    unknown_courses = all_course_users.where({:know => 0}).map(&:course_id)
+    course_ids = course_ids.collect {|x| x.to_i}
+    learned_courses = unknown_courses & course_ids
+    learned_courses.each do |course_id|
+      course = all_course_users.where({:course_id => course_id})
+      Rails.logger.info "-----------course_id------#{course_id}---------"
+      Rails.logger.info "-----------course.first---#{course.first}-----#{course.first.class}---------"
+      Rails.logger.info "-----------course------#{course.inspect}---------"
+      
+      course.first.update_attribute(:know,  1)
+    end
+  end
 end

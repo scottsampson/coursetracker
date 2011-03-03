@@ -29,12 +29,12 @@ class CoursesController < ApplicationController
       values = {:question_id => answer[0],:answer => answer[1], :project_id => params['project_id']}
       Answer.create(values)
     end
-    params['project']['course_ids'].each do |answer|
-      puts answer.inspect
-      values = {:course_id => answer,:user_id => @current_user.id, :project_id => @project.id}
+    @current_user.update_courses(params['project']['course_ids'])
+    params['project']['course_ids'].each do |course|
+      values = {:course_id => course,:user_id => @current_user.id, :project_id => @project.id}
       Tech.create(values)
     end
-    redirect_to(answers_project_select_path, :notice => "Tech added to #{@project.name}")
+    redirect_to(answers_project_select_path, :notice => "Thank you for answering questions about #{@project.name}")
 
   end
 
