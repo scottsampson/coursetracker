@@ -32,10 +32,6 @@ class User < ActiveRecord::Base
     learned_courses = unknown_courses & course_ids
     learned_courses.each do |course_id|
       course = all_course_users.where({:course_id => course_id})
-      Rails.logger.info "-----------course_id------#{course_id}---------"
-      Rails.logger.info "-----------course.first---#{course.first}-----#{course.first.class}---------"
-      Rails.logger.info "-----------course------#{course.inspect}---------"
-      
       course.first.update_attribute(:know,  1)
     end
   end

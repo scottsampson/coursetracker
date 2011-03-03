@@ -18,4 +18,13 @@ module ApplicationHelper
     score = 0 if score.nil?
     score/total.to_f < 0.50
   end
+  
+  def get_user_courses(user_id, project_id)
+    course_ids = Tech.where({:user_id => user_id, :project_id => project_id}).map(&:course_id).uniq.compact
+    Course.find_all_by_id(course_ids).map(&:name).join(", ").to_s
+  end
+  
+  def get_user_info(user_id)
+    User.find_by_id(user_id).name
+  end
 end
