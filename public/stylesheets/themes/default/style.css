@@ -451,3 +451,14 @@ ul#new_users_list li div {
 	text-decoration:underline;
 	cursor:pointer;
 }
+
+.experienced_user_list{
+	display:none;
+	background-color: #CCCCCC;
+  border: 1px solid black;
+  color: blue;
+  padding-bottom: 0;
+  padding-left: 11px;
+  padding-right: 11px;
+  width: 180px;
+}

@@ -1,3 +1,14 @@
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.experienced_users').click(function(e){
+			window.r = $(this);
+			$(this).parents('tr').next('tr').find(".experienced_user_list").fadeToggle("slow", "linear");
+			e.preventDefault();
+		});
+	});
+</script>
+
+
 <h1>Courses that need to be learned.</h1>
 <% form_for :reports, :url => { :action => "index" } do |a| %>
 	    <span></span>
@@ -18,6 +29,8 @@
       <th>Title</th>
       <th>Knowledge Score</th>
       <th>Users</th>
+      <th>Experience</th>
+
     </tr>
     <% level_name = course.level_name %>
   <% end %>
@@ -28,19 +41,35 @@
 	<% else %>
   	<td><%= course.name %></td>
 	<% end %>
+	
     <td>
       <%= course.know_score || 0 %>/<%= @total_score %>
+
     </td>
     <td style="width:800px">
-		<span class="red"><%= course.not_competent %></span> <span class="yellow"><%= course.novice %></span></td>
+		<span class="red"><%= course.not_competent %></span> <span class="yellow"><%= course.novice %></span>
+		</td>
+		<td><%= link_to "Experience", "#", :class => "experienced_users" %></td>
+		
   </tr>
+  <tr>
+		<td>
+		<div class="experienced_user_list">
+			<% courses = get_experienced_users(course.id) %>
+			<% if courses.empty? %>
+				<p class="red">No experienced users yet</p>
+			<% else %>
+				<% courses.each do |user, count| %>
+					<p><%= user %> (<%= count %>)</p>
+				<% end %>
+			<% end %>
+				
+		</div>
+	</td>
+	</tr>
 <% end %>
 	</table>
-
 	<br />
-
-
-
 
 
 

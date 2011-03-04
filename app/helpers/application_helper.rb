@@ -27,4 +27,10 @@ module ApplicationHelper
   def get_user_info(user_id)
     User.find_by_id(user_id).name
   end
+  
+  def get_experienced_users(course_id)
+    collection = Hash.new {|hash, key| hash[key] = 0}
+    Tech.where({:course_id => course_id}).where("user_id IS NOT NULL").group("user_id, project_id").each {|tech| collection[tech.user.name] += 1}
+    collection
+  end
 end
