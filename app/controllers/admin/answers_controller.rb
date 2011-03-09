@@ -16,7 +16,7 @@ class Admin::AnswersController < Admin::ApplicationController
     @projects = Project.all
     if !params['answer'].nil?
       @project = Project.find_by_id(params['answer']['project_id'])
-      @answers = Answer.select("questions.question, answers.*").joins("join questions on questions.id = answers.question_id").where(:project_id => @project.id).order("answers.question_id")
+      @answers = Answer.select("questions.question, answers.*").joins("join questions on questions.id = answers.question_id  join projects_users on projects_users.user_id = answers.user_id and projects_users.project_id = answers.project_id and projects_users.submitted = '1'").where(:project_id => @project.id).order("answers.question_id")
     end
     @answer = Answer.new
 
