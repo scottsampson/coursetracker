@@ -17,22 +17,31 @@ class AnswersController < ApplicationController
   
   
   def answer_questions
-    @questions = Question.all
+    @questions = Question.joins(" left join answers on answers.question_id = questions.id and answers.project_id = '#{params['answer']['project_id']}' and answers.user_id = '#{@current_user.id}'").select("questions.*,answers.answer ").all
     @answer = Answer.new
+    @courses_checked = Course.joins(" join teches on teches.course_id = courses.id").where("teches.user_id = '?' and teches.project_id = ?",@current_user.id,params['answer']['project_id'])
     @project = Project.find_by_id(params['answer']['project_id']);
     @courses = Course.all
+    pu = ProjectsUsers.find_by_user_id_and_project_id(@current_user.id,params['answer']['project_id'])
+    @already_answered = pu.nil? ? false : pu.submitted
+    
     respond_to do |format|
       format.html # index.html.erb
     end
   end
   
   def save_answers
+    puts 'got inside save answers'
     puts params.inspect
+    puts 'current_user - ' + @current_user.inspect
     params['question_ids'].each do |answer|
       puts answer.inspect
-      values = {:question_id => answer[0],:answer => answer[1], :project_id => params['project_id']}
+      values = {:question_id => answer[0],:answer => answer[1], :project_id => params['project_id'], :user_id => @current_user.id}
       Answer.new(values).save
     end
+    submitted = params['commit'] == "Submit" ? true : false;
+    
+    ProjectsUsers.new({:user_id => @current_user.id,:project_id => params['project_id'],:submitted => submitted}).save_or_create
     
     respond_to do |format|
       format.html # index.html.erb

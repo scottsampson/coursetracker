@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :courses, :through => :courses_users
   has_many :finished_exercises
   has_many :exercises, :through => :finished_exercises
+  has_many :projects, :through => :projects_users
+  has_many :answers
   
   def known_courses
     self.courses.collect{|course| course if course.courses_users.first.know == true }.compact

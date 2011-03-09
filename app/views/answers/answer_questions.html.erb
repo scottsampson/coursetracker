@@ -1,19 +1,20 @@
 
+
 <h2>What tech was used during this project?</h2>
 
 	<% count = 0 %>
 	<% form_for :project, :url => courses_project_tech_path do |f| %>
 	<table border="0" cellspacing="10" cellpadding="10">
-	
+
 	  <% @courses.each do |course| -%>
 			<% if count == 0 %>
 	    	<tr>
 			<% end %>
 				<td>
-	      <%= check_box_tag :course_ids, course.id, @project.courses.include?(course), :name => 'project[course_ids][]' -%>
+	      <%= check_box_tag :course_ids, course.id, @courses_checked.include?(course), :name => 'project[course_ids][]' -%>
 	      <%= label_tag :course_ids, course.name -%>
 	    </td>
-	
+
 		<% count += 1 %>
 		<% if count == 6 %>
     	</tr>
@@ -39,16 +40,17 @@
       </ul>
     </div>
   <% end %>
-  
+
   <% @questions.each_with_index do |question,index| %>
     <div class="field">
       <%= f.label (index + 1).to_s + ") " + question.question %><br />
-      <%= text_area_tag "question_ids[" + question.id.to_s + "]", '',:cols => 40, :rows => 10 %>
+      <%= text_area_tag "question_ids[" + question.id.to_s + "]", question.answer,:cols => 40, :rows => 10 %>
     </div>  
   <% end %>
-  
+
   <div class="actions">
-    <%= f.submit 'Save Changes' %>
+    <%= f.submit 'Save And Comeback Later' %>
+    &nbsp;| &nbsp;<%= f.submit 'Submit' %>
   </div>
   <%= hidden_field_tag 'project_id',@project.id %>
 <% end %>

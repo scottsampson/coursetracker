@@ -26,16 +26,27 @@ class CoursesController < ApplicationController
     @project = Project.find_by_id(params[:project_id])
     params['question_ids'].each do |answer|
       puts answer.inspect
-      values = {:question_id => answer[0],:answer => answer[1], :project_id => params['project_id']}
-      Answer.create(values)
+      values = {:question_id => answer[0],:answer => answer[1], :project_id => params['project_id'], :user_id => @current_user.id}
+      ans = Answer.find_or_create_by_question_id_and_project_id_and_user_id(values)
+      ans.answer = answer[1];
+      ans.save 
     end
+    existing_courses = Tech.find_all_by_user_id_and_project_id(@current_user.id,@project.id)
+    puts existing_courses.inspect
+    Tech.destroy(existing_courses)
     @current_user.update_courses(params['project']['course_ids'])
     params['project']['course_ids'].each do |course|
       values = {:course_id => course,:user_id => @current_user.id, :project_id => @project.id}
-      Tech.create(values)
+      tech = Tech.find_or_create_by_course_id_and_user_id_and_project_id(values)
+      tech.save
     end
-    redirect_to(answers_project_select_path, :notice => "Thank you for answering questions about #{@project.name}")
+    submitted = params['commit'] == "Submit" ? true : false;
 
+    pu = ProjectsUsers.find_or_create_by_user_id_and_project_id({:user_id => @current_user.id,:project_id => params['project_id']})
+    pu.submitted = submitted
+    pu.save
+    
+    redirect_to(answers_project_select_path, :notice => "Thank you for answering questions about #{@project.name}")
   end
 
   # GET /courses/1
