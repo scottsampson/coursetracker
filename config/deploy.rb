@@ -4,7 +4,7 @@ set :repository,  "git@github.com:scottsampson/coursetracker.git"
 set :user, "ubuntu"
 set :use_sudo, false
 
-set :deploy_to, "/srv/#{application}"
+set :deploy_to, "/srv/apps/#{application}"
 
 set :deploy_via, :remote_cache
 default_run_options[:pty] = true 
