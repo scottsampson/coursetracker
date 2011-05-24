@@ -48,11 +48,11 @@ end
 
 namespace :bundler do
   task :install, :roles => :app do
-    run "cd #{release_path} && sudo bundle install"
+    run "cd #{release_path} && sudo bundle install --without=development"
     
     on_rollback do
       if previous_release
-        run "cd #{previous_release} && sudo bundle install"
+        run "cd #{previous_release} && sudo bundle install --without=development"
       else
         logger.important "no previous release to rollback to, rollback of bundler:install skipped"
       end
