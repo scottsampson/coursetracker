@@ -36,6 +36,14 @@ namespace :deploy do
   task :migrate do
     run "cd #{current_path} && rake db:migrate"
   end
+
+  task :setup_sockets_dir do
+    run "mkdir #{shared_path}/sockets"
+  end
+
+  task :symlink_sockets_dir do
+    run "ln -s #{shared_path}/sockets #{current_path}/tmp/sockets"
+  end
 end
 
 namespace :bundler do
@@ -56,7 +64,9 @@ namespace :bundler do
   end
 end
 
+after "deploy:setup", "deploy:setup_sockets_dir"
 after "deploy:setup", "bundler:ensure_bundler_installed"
 after "deploy:update_code", "bundler:install"
+after "deploy:symlink", "deploy:symlink_sockets_dir"
 after "deploy:symlink", "deploy:migrate"
 

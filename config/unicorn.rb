@@ -13,7 +13,7 @@ preload_app true
 timeout 30
 
 # Listen on a Unix data socket
-listen '/srv/coursetracker/shared/run/coursetracker.sock', :backlog => 2048
+listen '/srv/coursetracker/shared/sockets/coursetracker.sock', :backlog => 2048
 
 # Set pid location to Capistrano / Rails default
 pid '/srv/coursetracker/shared/pids/unicorn.pid'
