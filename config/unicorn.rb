@@ -59,10 +59,10 @@ after_fork do |server, worker|
 
   ##
   # Unicorn master is started as root, which is fine, but let's
-  # drop the workers to www-data:www-data
+  # drop the workers to ubuntu:ubuntu
   begin
     uid, gid = Process.euid, Process.egid
-    user, group = 'www-data', 'www-data'
+    user, group = 'ubuntu', 'ubuntu'
     target_uid = Etc.getpwnam(user).uid
     target_gid = Etc.getgrnam(group).gid
     worker.tmp.chown(target_uid, target_gid)
