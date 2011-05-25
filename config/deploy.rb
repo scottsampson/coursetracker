@@ -1,17 +1,18 @@
 set :application, "coursetracker"
-set :repository,  "git@github.com:scottsampson/coursetracker.git"
-
-set :user, "ubuntu"
-set :use_sudo, false
 
 set :deploy_to, "/srv/apps/#{application}"
-
+set :scm, :git
+set :repository,  "git@github.com:scottsampson/coursetracker.git"
 set :deploy_via, :remote_cache
 default_run_options[:pty] = true 
 
 set :ssh_options, { :forward_agent => true, :user => "ubuntu" }
+set :user, "ubuntu"
+set :use_sudo, false
 
-set :scm, :git
+set :default_environment, {
+  'RAILS_ENV' => 'production'
+}
 
 role :web, "184.72.234.156"
 role :app, "184.72.234.156"
