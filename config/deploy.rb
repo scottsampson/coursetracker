@@ -4,6 +4,7 @@ set :deploy_to, "/srv/apps/#{application}"
 set :scm, :git
 set :repository,  "git@github.com:scottsampson/coursetracker.git"
 set :deploy_via, :remote_cache
+set :keep_releases, 10
 default_run_options[:pty] = true 
 
 set :ssh_options, { :forward_agent => true, :user => "ubuntu" }
