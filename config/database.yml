@@ -34,8 +34,8 @@ production:
   reconnect: false
   database: coursetracker_production
   pool: 5
-  username: root
-  password: 
+  username: coursetracker
+  password: b05bece8d6a28a4f698efa9
   socket: /var/run/mysqld/mysqld.sock
 
 cucumber:
