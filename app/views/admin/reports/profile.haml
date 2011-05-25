@@ -1,0 +1,21 @@
+%h1= @user.name
+- Hash[COURSE_ANSWERS.sort{|x,y| y<=>x}].each do |key,val|
+  %h3= val
+  %ul.profile.report
+    -# = @courses.where('know = ?', key).collect{|c| c.course.name}.join(', ')
+    - @courses.where('know = ?', key).each do |c|
+      %li= c.course.name
+%h3 Recent Activity
+%table.profile.report
+  - @courses.each do |activity|
+    %tr
+      %td.time
+        = activity.updated_at.strftime('%I%p').downcase
+        on
+        = activity.updated_at.strftime('%A, %b %e')
+      %td
+        = @user.username
+        adjusted their knowledge in
+        %strong= activity.course.name
+        to
+        %em= COURSE_ANSWERS[activity.know.to_s]

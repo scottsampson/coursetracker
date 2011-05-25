@@ -462,3 +462,28 @@ ul#new_users_list li div {
   padding-right: 11px;
   width: 180px;
 }
+
+ul.profile.report {
+	font-size: 9pt;
+	color: #444;
+	padding-bottom: 1em;
+	word-spacing: .5em;
+}
+ul.profile.report li {
+	margin-left: 2em;
+}
+
+table.profile.report {
+	border-collapse: collapse;
+	padding:0; margin:0;
+}
+table.profile.report td {
+	color: #555;
+	padding-right: 1em;
+}
+table.profile.report td.time {
+	color:gray;
+	text-align: right;
+}
+table.profile.report strong { padding: 0 .25em; color:#444; }
+table.profile.report em     { padding: 0 .25em; color:gray; }

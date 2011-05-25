@@ -4,7 +4,6 @@ Coursetracker::Application.routes.draw do
     match 'vote_down', :controller => 'links', :action => 'vote_down'
   end
   
-
   resources :exercises
   
   match 'answers/answer_questions/' => 'answers#answer_questions', :method => 'post'
@@ -18,25 +17,21 @@ Coursetracker::Application.routes.draw do
     resources :projects
     resources :answers
     resources :questions
-
     resources :targets
+    
     match 'courses/reorder', :controller => 'courses', :action => 'reorder'
-    resources :courses
-
-    resources :users
-    
-    resources :resources
-    
-    resources :exercises
-    
-    root :to => "courses#index"
-    
     match 'courses/level_count/:level_id', :controller => 'courses', :action => 'level_count'
-    match 'reports', :controller => 'reports', :action => 'index'
+    resources :courses
+    resources :users
+    resources :resources
+    resources :exercises
+
     match 'reports/users', :controller => 'reports', :action => 'users'
     match 'reports/courses', :controller => 'reports', :action => 'courses'
+    match 'reports/users/:username', :controller => 'reports', :action => 'profile'
+    resources :reports
     
-    
+    root :to => "courses#index"
   end
   
   resources :courses

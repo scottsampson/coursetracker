@@ -41,4 +41,12 @@ class Admin::ReportsController < Admin::ApplicationController
     #courses without prerequisites
     @courses = Course.where("id not in (select course_id from prerequisites)") 
   end
+  
+  # User profile to display a knowledge report in full detail.
+  def profile
+    @user = User.where("username = ?", params[:username]).first
+    @courses = @user.courses_users.order('updated_at desc')
+    
+  end
+  
 end

@@ -12,6 +12,7 @@ gem 'twitter_oauth'
 gem 'cucumber'
 gem 'cucumber-rails'
 gem 'capybara'
+gem 'haml'
 
 # Use unicorn as the web server
 # gem 'unicorn'

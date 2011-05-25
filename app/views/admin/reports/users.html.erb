@@ -10,7 +10,7 @@
   </tr>
 <% @users.each do |user| %>
   <tr>
-    <td><%= user.username %></td>
+    <td><%= link_to user.name, 'users/'+user.username %></td>
     <td><%= user.known_beginner.length %>/<%= @total_beginner %></td>
     <td><%= user.known_intermediate.length %>/<%= @total_intermediate %></td>
     <td><%= user.known_expert.length %>/<%= @total_expert %></td>
