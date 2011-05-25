@@ -13,14 +13,14 @@ preload_app true
 timeout 30
 
 # Listen on a Unix data socket
-listen '/srv/coursetracker/shared/sockets/coursetracker.sock', :backlog => 2048
+listen '/srv/apps/coursetracker/shared/sockets/coursetracker.sock', :backlog => 2048
 
 # Set pid location to Capistrano / Rails default
-pid '/srv/coursetracker/shared/pids/unicorn.pid'
+pid '/srv/apps/coursetracker/shared/pids/unicorn.pid'
 
 # Setup logging paths
-stderr_path '/srv/coursetracker/shared/log/unicorn.error.log'
-stdout_path '/srv/coursetracker/shared/log/unicorn.access.log'
+stderr_path '/srv/apps/coursetracker/shared/log/unicorn.error.log'
+stdout_path '/srv/apps/coursetracker/shared/log/unicorn.access.log'
 
 
 before_fork do |server, worker|
