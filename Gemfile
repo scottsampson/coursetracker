@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.0'
 
+gem 'rake', '0.8.7'
 gem 'mysql2', '~> 0.2.0'
 gem 'oauth'
 gem 'thumbs_up'
