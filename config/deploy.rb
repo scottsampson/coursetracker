@@ -34,7 +34,7 @@ namespace :deploy do
   end
 
   task :migrate do
-    run "cd #{current_path} && rake db:migrate"
+    run "cd #{current_path} && bundle exec rake db:migrate"
   end
 
   task :setup_sockets_dir do
